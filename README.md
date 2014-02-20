@@ -23,18 +23,29 @@ Currently the mappings are hard coded to work with SNES games. Change your emula
 The inputs are mapped as:
 
 up    -> Numpad 8
+
 down  -> Numpad 2
+
 left  -> Numpad 4
+
 right -> Numpad 6
 
+
 b -> Numpad 1
+
 a -> Numpad 3
+
 y -> Number 7
+
 x -> Numpad 9
+
 l -> Slash (/)
+
 r -> Asterisk (*)
 
+
 start  -> Numpad 0
+
 select -> Period (.)
 
 
