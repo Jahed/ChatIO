@@ -40,11 +40,16 @@ public class TwitchRobot {
 	
 	public static final String IRC_NAME = "TwitchRobot";
 	
-	public static void main(String[] args) throws AWTException, JsonParseException, IOException, IrcException {
+	public static void main(String[] args) throws AWTException, JsonParseException, IOException, IrcException, InterruptedException {
 		ObjectMapper mapper = new ObjectMapper();
 		TwitchConfig config = mapper.readValue(new File("config.json"), TwitchConfig.class);
 		
 		TwitchRobot twitchRobot = new TwitchRobot(config);
+		
+		System.out.println("\nStarting robot in 5 seconds, focus your window...");
+		Thread.sleep(5000);
+		
+		System.out.println("\nRobot Started | press CTRL + C to stop\n");
 		twitchRobot.run();
 	}
 
@@ -74,17 +79,12 @@ public class TwitchRobot {
 				"x", "y", "l", "r", "start", "select");
 		
 		inputBot = new Robot();
-		inputBot.setAutoDelay(100); // required to register
+		inputBot.setAutoDelay(100); // required to register key presses
 		// inputBot.setAutoWaitForIdle(false);
-		
-		//Connect to server
-		
-		
-		
 	}
 	
 	public void run() throws IOException, IrcException {
-		ircBot.startBot();
+		ircBot.startBot();		
 	}
 
 	public boolean perform(String choice) {
