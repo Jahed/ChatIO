@@ -24,134 +24,129 @@ package io.jahed.twitchrobot;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
+import org.pircbotx.Configuration;
+import org.pircbotx.PircBotX;
+import org.pircbotx.exception.IrcException;
 
-public class TwitchRobot implements HttpHandler {
-    
-    public static void main(String[] args) throws InterruptedException, IOException, AWTException {
-        HttpServer server = HttpServer.create(new InetSocketAddress(8090), 0);
-        TwitchRobot twitchRobot = new TwitchRobot();
-        server.createContext("/recieve", twitchRobot);
-        server.setExecutor(null);
-        
-        System.out.println("Starting in 5 seconds. Get the game window into the foreground!");
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-        Thread.sleep(5000);
+public class TwitchRobot {
+	
+	public static final String IRC_NAME = "TwitchRobot";
+	
+	public static void main(String[] args) throws AWTException, JsonParseException, IOException, IrcException {
+		ObjectMapper mapper = new ObjectMapper();
+		TwitchConfig config = mapper.readValue(new File("config.json"), TwitchConfig.class);
+		
+		TwitchRobot twitchRobot = new TwitchRobot(config);
+		twitchRobot.run();
+	}
 
-        System.out.println("\n  ==  SERVER STARTED  ==  ");
-        System.out.println("  Press CTRL+C to Close.");
-        
-        server.start();
-    }
-    
-    private List<String> allowedChoices;
-    private Robot robot;
-    
-    public TwitchRobot() throws AWTException {
-        allowedChoices = Arrays.asList("up", "down", "left", "right", "a", "b", "x", "y", "l", "r", "start", "select");
-        robot = new Robot();
-        robot.setAutoDelay(100); //required to register
-//        robot.setAutoWaitForIdle(false);
-    }
+	private List<String> allowedChoices;
+	private Robot inputBot;
+	private PircBotX ircBot;
 
-    @Override
-    public void handle(HttpExchange exchange) throws IOException {
-        
-        if(!exchange.getRequestMethod().equalsIgnoreCase("POST")) {
-            return;
-        }
-        
-        try(Scanner scanner = new Scanner(exchange.getRequestBody())) {
-            if(!scanner.hasNext()) return;
-            
-            String token = scanner.next();
-            
-            if(token.charAt(1) == '»') { //for continuing lines
-                if(!scanner.hasNext()) {
-                    System.out.println(" xx Rejected (" + token + ")");
-                    return;
-                }
-                
-                token = scanner.next();
-            }
+	public TwitchRobot(TwitchConfig config) throws AWTException {
+		
+		Configuration<PircBotX> configuration = new TwitchBuilder()
+	        .setLogin(IRC_NAME)
+	        .setRealName(IRC_NAME)
+	        .setAutoNickChange(true)
+	        
+	        .setName(config.username)
+	        .setServerHostname(config.server)
+	        .setServerPort(config.port)
+	        .setServerPassword(config.password)
+	        .addAutoJoinChannel(config.channel)
+	        
+	        .addListener(new TwitchListener(this))
+		.buildConfiguration();
+		
+		ircBot = new PircBotX(configuration);
 
-            System.out.println("Message from a User {");            
-            perform(token); //only allow first line, first word
-            System.out.println("}\n");
-        }
-        
-        exchange.getResponseBody().close();
+		allowedChoices = Arrays.asList("up", "down", "left", "right", "a", "b",
+				"x", "y", "l", "r", "start", "select");
+		
+		inputBot = new Robot();
+		inputBot.setAutoDelay(100); // required to register
+		// inputBot.setAutoWaitForIdle(false);
+		
+		//Connect to server
+		
+		
+		
+	}
+	
+	public void run() throws IOException, IrcException {
+		ircBot.startBot();
+	}
 
-    }
-    
-    public void perform(String choice) {
-        
-        if(!allowedChoices.contains(choice)) {
-            System.err.println("  xx Choice Rejected (" + choice + ")");
-            return;
-        }
-        
-        switch(choice) {
-            case "up":
-                robot.keyPress(KeyEvent.VK_NUMPAD8);
-                robot.keyRelease(KeyEvent.VK_NUMPAD8);
-                break;
-            case "down":
-                robot.keyPress(KeyEvent.VK_NUMPAD2);
-                robot.keyRelease(KeyEvent.VK_NUMPAD2);
-                break;
-            case "left":
-                robot.keyPress(KeyEvent.VK_NUMPAD4);
-                robot.keyRelease(KeyEvent.VK_NUMPAD4);
-                break;
-            case "right":
-                robot.keyPress(KeyEvent.VK_NUMPAD6);
-                robot.keyRelease(KeyEvent.VK_NUMPAD6);
-                break;
-            case "a":
-                robot.keyPress(KeyEvent.VK_NUMPAD3);
-                robot.keyRelease(KeyEvent.VK_NUMPAD3);
-                break;
-            case "b":
-                robot.keyPress(KeyEvent.VK_NUMPAD1);
-                robot.keyRelease(KeyEvent.VK_NUMPAD1);
-                break;
-            case "x":
-                robot.keyPress(KeyEvent.VK_NUMPAD9);
-                robot.keyRelease(KeyEvent.VK_NUMPAD9);
-                break;
-            case "y":
-                robot.keyPress(KeyEvent.VK_NUMPAD7);
-                robot.keyRelease(KeyEvent.VK_NUMPAD7);
-                break;
-            case "l":
-                robot.keyPress(KeyEvent.VK_SLASH);
-                robot.keyRelease(KeyEvent.VK_SLASH);
-                break;
-            case "r":
-                robot.keyPress(KeyEvent.VK_ASTERISK);
-                robot.keyRelease(KeyEvent.VK_ASTERISK);
-                break;
-            case "start":
-                robot.keyPress(KeyEvent.VK_NUMPAD0);
-                robot.keyRelease(KeyEvent.VK_NUMPAD0);
-                break;
-            case "select":
-                robot.keyPress(KeyEvent.VK_PERIOD);
-                robot.keyRelease(KeyEvent.VK_PERIOD);
-                break;
-            default: return;
-        }
-        
-        System.out.println("  -- Choice Performed (" + choice + ")");
+	public boolean perform(String choice) {
 
-    }
+		if (!allowedChoices.contains(choice)) {
+			return false;
+		}
+
+		switch (choice) {
+			case "up":
+				inputBot.keyPress(KeyEvent.VK_NUMPAD8);
+				inputBot.keyRelease(KeyEvent.VK_NUMPAD8);
+				break;
+			case "down":
+				inputBot.keyPress(KeyEvent.VK_NUMPAD2);
+				inputBot.keyRelease(KeyEvent.VK_NUMPAD2);
+				break;
+			case "left":
+				inputBot.keyPress(KeyEvent.VK_NUMPAD4);
+				inputBot.keyRelease(KeyEvent.VK_NUMPAD4);
+				break;
+			case "right":
+				inputBot.keyPress(KeyEvent.VK_NUMPAD6);
+				inputBot.keyRelease(KeyEvent.VK_NUMPAD6);
+				break;
+			case "a":
+				inputBot.keyPress(KeyEvent.VK_NUMPAD3);
+				inputBot.keyRelease(KeyEvent.VK_NUMPAD3);
+				break;
+			case "b":
+				inputBot.keyPress(KeyEvent.VK_NUMPAD1);
+				inputBot.keyRelease(KeyEvent.VK_NUMPAD1);
+				break;
+			case "x":
+				inputBot.keyPress(KeyEvent.VK_NUMPAD9);
+				inputBot.keyRelease(KeyEvent.VK_NUMPAD9);
+				break;
+			case "y":
+				inputBot.keyPress(KeyEvent.VK_NUMPAD7);
+				inputBot.keyRelease(KeyEvent.VK_NUMPAD7);
+				break;
+			case "l":
+				inputBot.keyPress(KeyEvent.VK_SLASH);
+				inputBot.keyRelease(KeyEvent.VK_SLASH);
+				break;
+			case "r":
+				inputBot.keyPress(KeyEvent.VK_ASTERISK);
+				inputBot.keyRelease(KeyEvent.VK_ASTERISK);
+				break;
+			case "start":
+				inputBot.keyPress(KeyEvent.VK_NUMPAD0);
+				inputBot.keyRelease(KeyEvent.VK_NUMPAD0);
+				break;
+			case "select":
+				inputBot.keyPress(KeyEvent.VK_PERIOD);
+				inputBot.keyRelease(KeyEvent.VK_PERIOD);
+				break;
+			default:
+				return false;
+		}
+
+		return true;
+	}
+
 }

@@ -1,0 +1,7 @@
+{
+	"server" : "irc.twitch.tv",
+	"port" : 6667,
+	"channel" : "#channel_name_to_listen_to",
+	"username" : "bot_account_username",
+	"password" : "oauth:your_token"
+}
