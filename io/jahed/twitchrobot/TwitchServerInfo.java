@@ -13,9 +13,8 @@ public class TwitchServerInfo extends ServerInfo {
 	
 	@Override
 	public void parse(int code, List<String> parsedLine) {
-		//Library assumes too much.
 		if(code == 4 && parsedLine.size() < 2) {
-			System.err.println("TwitchServerInfo - Code 4 with " + parsedLine);
+			//Twitch IRC Server has an extra Code 4 response containing user's nick.
 			return;
 		}
 		
