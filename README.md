@@ -52,7 +52,6 @@ select -> Period (.)
 ##TODO
 There's a lot to do. This is all currently at its first stages.
 
-* Use IRC channel instead of web chat (remove dependancy on userscript)
 * Only trigger inputs when specified window is in focus
 * Allow customised inputs
 * Fancy output
