@@ -21,44 +21,55 @@
 
 package io.jahed.twitchrobot;
 
-import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
 
-import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TwitchRobot {
 	
 	public static final String IRC_NAME = "TwitchRobot";
 	
-	public static void main(String[] args) throws AWTException, JsonParseException, IOException, IrcException, InterruptedException {
+	public static void main(String[] args) throws Exception {
+		//Temporary while there's no error-checking
+		System.out.println("\nIncase something goes wrong, to run the program properly use:\n" +
+				"\tjava -jar twitch-robot.jar \"config_path.json\" \"keys_path.json\" \n");
+
 		ObjectMapper mapper = new ObjectMapper();
-		TwitchConfig config = mapper.readValue(new File("config.json"), TwitchConfig.class);
 		
-		TwitchRobot twitchRobot = new TwitchRobot(config);
+		TwitchConfig config = mapper.readValue(new File(args[0]), TwitchConfig.class);
+		
+	    TypeReference<HashMap<String,String>> hashMapTypeRef = new TypeReference<HashMap<String,String> >() {}; 
+	    Map<String,String> keyMap = mapper.readValue(new File(args[1]), hashMapTypeRef); 
+	    
+		TwitchRobot twitchRobot = new TwitchRobot(config, keyMap);
 		
 		System.out.println("\nStarting robot in 5 seconds, focus your window...");
 		Thread.sleep(5000);
-		
 		System.out.println("\nRobot Started | press CTRL + C to stop\n");
 		twitchRobot.run();
 	}
 
-	private List<String> allowedChoices;
 	private Robot inputBot;
 	private PircBotX ircBot;
+	private Map<String, Integer> keyMap;
 
-	public TwitchRobot(TwitchConfig config) throws AWTException {
+	public TwitchRobot(TwitchConfig config, Map<String, String> stringKeyMap) throws Exception {
 		
+		System.out.println("Parsing Keys");
+		this.setKeyMap(stringKeyMap);
+		
+		System.out.println("Setting up IRC Configuration");
 		Configuration<PircBotX> configuration = new TwitchBuilder()
 	        .setLogin(IRC_NAME)
 	        .setRealName(IRC_NAME)
@@ -75,12 +86,19 @@ public class TwitchRobot {
 		
 		ircBot = new PircBotX(configuration);
 
-		allowedChoices = Arrays.asList("up", "down", "left", "right", "a", "b",
-				"x", "y", "l", "r", "start", "select");
-		
+		System.out.println("Creating Robot");
 		inputBot = new Robot();
 		inputBot.setAutoDelay(100); // required to register key presses
 		// inputBot.setAutoWaitForIdle(false);
+	}
+	
+	private void setKeyMap(Map<String, String> stringKeyMap) throws Exception {
+		this.keyMap = new HashMap<String, Integer>();
+		
+		for(String word : stringKeyMap.keySet()) {
+			Integer keyCode = (Integer)KeyEvent.class.getField(stringKeyMap.get(word)).get(null);
+			this.keyMap.put(word, keyCode);
+		}
 	}
 	
 	public void run() throws IOException, IrcException {
@@ -88,63 +106,14 @@ public class TwitchRobot {
 	}
 
 	public boolean perform(String choice) {
-
-		if (!allowedChoices.contains(choice)) {
+		Integer keyCode = keyMap.get(choice);
+		
+		if(keyCode == null) {
 			return false;
 		}
-
-		switch (choice) {
-			case "up":
-				inputBot.keyPress(KeyEvent.VK_NUMPAD8);
-				inputBot.keyRelease(KeyEvent.VK_NUMPAD8);
-				break;
-			case "down":
-				inputBot.keyPress(KeyEvent.VK_NUMPAD2);
-				inputBot.keyRelease(KeyEvent.VK_NUMPAD2);
-				break;
-			case "left":
-				inputBot.keyPress(KeyEvent.VK_NUMPAD4);
-				inputBot.keyRelease(KeyEvent.VK_NUMPAD4);
-				break;
-			case "right":
-				inputBot.keyPress(KeyEvent.VK_NUMPAD6);
-				inputBot.keyRelease(KeyEvent.VK_NUMPAD6);
-				break;
-			case "a":
-				inputBot.keyPress(KeyEvent.VK_NUMPAD3);
-				inputBot.keyRelease(KeyEvent.VK_NUMPAD3);
-				break;
-			case "b":
-				inputBot.keyPress(KeyEvent.VK_NUMPAD1);
-				inputBot.keyRelease(KeyEvent.VK_NUMPAD1);
-				break;
-			case "x":
-				inputBot.keyPress(KeyEvent.VK_NUMPAD9);
-				inputBot.keyRelease(KeyEvent.VK_NUMPAD9);
-				break;
-			case "y":
-				inputBot.keyPress(KeyEvent.VK_NUMPAD7);
-				inputBot.keyRelease(KeyEvent.VK_NUMPAD7);
-				break;
-			case "l":
-				inputBot.keyPress(KeyEvent.VK_SLASH);
-				inputBot.keyRelease(KeyEvent.VK_SLASH);
-				break;
-			case "r":
-				inputBot.keyPress(KeyEvent.VK_ASTERISK);
-				inputBot.keyRelease(KeyEvent.VK_ASTERISK);
-				break;
-			case "start":
-				inputBot.keyPress(KeyEvent.VK_NUMPAD0);
-				inputBot.keyRelease(KeyEvent.VK_NUMPAD0);
-				break;
-			case "select":
-				inputBot.keyPress(KeyEvent.VK_PERIOD);
-				inputBot.keyRelease(KeyEvent.VK_PERIOD);
-				break;
-			default:
-				return false;
-		}
+		
+		inputBot.keyPress(keyCode);
+		inputBot.keyRelease(keyCode);
 
 		return true;
 	}

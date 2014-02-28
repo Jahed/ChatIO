@@ -1,0 +1,14 @@
+{
+	"up": "VK_W",
+	"down": "VK_S",
+	"left": "VK_A",
+	"right": "VK_D",
+	"a": "VK_L",
+	"b": "VK_K",
+	"x": "VK_SEMICOLON",
+	"y": "VK_O",
+	"l": "VK_I",
+	"r": "VL_P",
+	"start": "VK_J",
+	"select": "VK_F"
+}
