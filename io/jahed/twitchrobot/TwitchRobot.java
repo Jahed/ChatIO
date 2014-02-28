@@ -101,6 +101,10 @@ public class TwitchRobot {
 		}
 	}
 	
+	public Map<String, Integer> getKeyMap() {
+		return keyMap;
+	}
+	
 	public void run() throws IOException, IrcException {
 		ircBot.startBot();		
 	}
