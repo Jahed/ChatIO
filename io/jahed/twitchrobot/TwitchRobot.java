@@ -55,7 +55,7 @@ public class TwitchRobot {
 		
 		System.out.println("\nStarting robot in 5 seconds, focus your window...");
 		Thread.sleep(5000);
-		System.out.println("\nRobot Started | press CTRL + C to stop\n");
+		System.out.println("\nRobot Started | press CTRL + C to stop\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		twitchRobot.run();
 	}
 
