@@ -1,16 +1,39 @@
 {
 	"up": "VK_W",
+	"^": "VK_W",
+	
 	"down": "VK_S",
+	"v": "VK_S",
+	
 	"left": "VK_A",
+	"<": "VK_A",
+	
 	"right": "VK_D",
+	">": "VK_D",
+	
 	"o": "VK_L",
+	"circle": "VK_L",
+	
 	"x": "VK_K",
+	"cross": "VK_K",
+	
+	"tri": "VK_SEMICOLON",
 	"triangle": "VK_SEMICOLON",
+	
+	"sq": "VK_O",
 	"square": "VK_O",
+	
 	"l1": "VK_I",
+	"l": "VK_I",
+	
 	"r1": "VK_P",
+	"r": "VK_P",
+	
 	"l2": "VK_U",
+	
 	"r2": "VK_LEFT_PARENTHESIS",
+	
 	"start": "VK_J",
+	
 	"select": "VK_F"
 }

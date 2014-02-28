@@ -22,11 +22,15 @@
 package io.jahed.twitchrobot;
 
 import java.awt.Robot;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.Timer;
 
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
@@ -35,9 +39,11 @@ import org.pircbotx.exception.IrcException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class TwitchRobot {
+public class TwitchRobot implements ActionListener {
 	
 	public static final String IRC_NAME = "TwitchRobot";
+	public static final String REPEAT_TOKEN = "repeat ";
+	public static final int REPEAT_TOKEN_LENGTH = REPEAT_TOKEN.length();
 	
 	public static void main(String[] args) throws Exception {
 		//Temporary while there's no error-checking
@@ -62,6 +68,8 @@ public class TwitchRobot {
 	private Robot inputBot;
 	private PircBotX ircBot;
 	private Map<String, Integer> keyMap;
+	private Timer repeatTimer;
+	private Integer repeatKey;
 
 	public TwitchRobot(TwitchConfig config, Map<String, String> stringKeyMap) throws Exception {
 		
@@ -87,8 +95,9 @@ public class TwitchRobot {
 
 		System.out.println("Creating Robot");
 		inputBot = new Robot();
-		inputBot.setAutoDelay(100); // required to register key presses
-		// inputBot.setAutoWaitForIdle(false);
+		inputBot.setAutoDelay(100); // required to register key presses on some emulators
+		
+		repeatTimer = new Timer(100, this);
 	}
 	
 	private void setKeyMap(Map<String, String> stringKeyMap) throws Exception {
@@ -109,16 +118,40 @@ public class TwitchRobot {
 	}
 
 	public boolean perform(String choice) {
-		Integer keyCode = keyMap.get(choice);
+		
+		boolean repeat = choice.startsWith(REPEAT_TOKEN);
+		Integer keyCode;
+		
+		if(repeat) {
+			keyCode = keyMap.get(choice.substring(REPEAT_TOKEN_LENGTH));
+		} else {
+			keyCode = keyMap.get(choice);
+		}
 		
 		if(keyCode == null) {
 			return false;
 		}
 		
-		inputBot.keyPress(keyCode);
-		inputBot.keyRelease(keyCode);
+		if(repeatKey != null) {
+			repeatTimer.stop();
+			repeatKey = null;
+		}
+		
+		if(repeat) {
+			repeatKey = keyCode;
+			repeatTimer.start();
+		} else {
+			inputBot.keyPress(keyCode);
+			inputBot.keyRelease(keyCode);
+		}
 
 		return true;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		inputBot.keyPress(repeatKey);
+		inputBot.keyRelease(repeatKey);
 	}
 
 }

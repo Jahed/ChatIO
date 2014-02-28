@@ -24,7 +24,7 @@ public class TwitchListener extends ListenerAdapter<PircBotX> {
 			public int compare(String s1, String s2) {
 				return s1.length() - s2.length();
 			}
-		}).length();
+		}).length() + TwitchRobot.REPEAT_TOKEN_LENGTH;
 	}
 	
 	@Override
