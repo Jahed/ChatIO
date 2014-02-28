@@ -42,8 +42,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class TwitchRobot implements ActionListener {
 	
 	public static final String IRC_NAME = "TwitchRobot";
+	
 	public static final String REPEAT_TOKEN = "repeat ";
 	public static final int REPEAT_TOKEN_LENGTH = REPEAT_TOKEN.length();
+	
+	public static final String HOLD_TOKEN = "hold ";
+	public static final int HOLD_TOKEN_LENGTH = HOLD_TOKEN.length();
 	
 	public static void main(String[] args) throws Exception {
 		//Temporary while there's no error-checking
@@ -70,6 +74,7 @@ public class TwitchRobot implements ActionListener {
 	private Map<String, Integer> keyMap;
 	private Timer repeatTimer;
 	private Integer repeatKey;
+	private Integer holdKey;
 
 	public TwitchRobot(TwitchConfig config, Map<String, String> stringKeyMap) throws Exception {
 		
@@ -120,10 +125,14 @@ public class TwitchRobot implements ActionListener {
 	public boolean perform(String choice) {
 		
 		boolean repeat = choice.startsWith(REPEAT_TOKEN);
+		boolean hold = choice.startsWith(HOLD_TOKEN);
+
 		Integer keyCode;
 		
 		if(repeat) {
 			keyCode = keyMap.get(choice.substring(REPEAT_TOKEN_LENGTH));
+		} else if(hold) {
+			keyCode = keyMap.get(choice.substring(HOLD_TOKEN_LENGTH));
 		} else {
 			keyCode = keyMap.get(choice);
 		}
@@ -135,11 +144,17 @@ public class TwitchRobot implements ActionListener {
 		if(repeatKey != null) {
 			repeatTimer.stop();
 			repeatKey = null;
+		} else if(holdKey != null && (!hold || holdKey != keyCode)) {
+			inputBot.keyRelease(holdKey);
+			holdKey = null;
 		}
 		
 		if(repeat) {
 			repeatKey = keyCode;
 			repeatTimer.start();
+		} else if(hold && holdKey != keyCode) {
+			holdKey = keyCode;
+			inputBot.keyPress(keyCode);
 		} else {
 			inputBot.keyPress(keyCode);
 			inputBot.keyRelease(keyCode);

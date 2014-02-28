@@ -3,6 +3,7 @@
 .metadata
 *.jar
 *.class
+*.zip
 
 config.json
 *.html
