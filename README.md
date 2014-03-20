@@ -1,13 +1,13 @@
 #ChatIO
 
-A simple cross-platform tool for controlling stuff off IRC (such as Twitch.tv chat). Currently only trigger key presses.
+A simple cross-platform tool for triggering key presses through IRC channels (such as Twitch.tv chat). Currently only triggers key presses.
 
 Inspired by [TwitchPlaysPokemon](http://www.twitch.tv/twitchplayspokemon).
 
 ##Usage
 Build the JAR or grab it [from here (not always up-to-date)](https://www.dropbox.com/sh/m4ggpmfokvkdkkt/yAQN1-L-eC/Twitch%20Robot).
 
-Create a config.json (see config.json.template) to connect to the IRC channel you want to listen to.
+Create a config.json (see config.json.template) to connect to the IRC channel you want to listen to. (See [Twitch.tv's IRC help page](http://help.twitch.tv/customer/portal/articles/1302780-twitch-irc). Channel names should be lowercase otherwise you won't join the same IRC channel as the one on your live channel page.)
 
 Create a keys.json (see keys folder) to map words to specific keys. Keys should map to [KeyEvent](http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html) fields (anything prefixed with 'VK_').
 
