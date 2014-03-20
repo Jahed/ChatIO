@@ -1,60 +1,32 @@
-#Twitch Robot
+#ChatIO
 
-A simple cross-platform tool for controlling stuff off Twitch.tv chat.
+A simple cross-platform tool for controlling stuff off IRC (such as Twitch.tv chat). Currently only trigger key presses.
 
 Inspired by [TwitchPlaysPokemon](http://www.twitch.tv/twitchplayspokemon).
 
 ##Usage
-Install "message-sender.js" as a Userscript (use Greasemonkey or something).
-
 Build the JAR or grab it [from here (not always up-to-date)](https://www.dropbox.com/sh/m4ggpmfokvkdkkt/yAQN1-L-eC/Twitch%20Robot).
 
-Go to your channel chat (web-only currently) with the script enabled, refresh.
+Create a config.json (see config.json.template) to connect to the IRC channel you want to listen to.
 
-Run "java -jar twitch-robot.jar" on the same machine.
+Create a keys.json (see keys folder) to map words to specific keys. Keys should map to [KeyEvent](http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html) fields (anything prefixed with 'VK_').
+
+Run "java -jar twitch-robot.jar {config.json} {keys.json}" on the same machine.
 
 Move focus to the window you want to control (e.g. the emulator).
 
 If you're using your personal computer, I suggest running it within a virtual machine using VirtualBox.
 
 ##Mappings
-Currently the mappings are hard coded to work with SNES games. Change your emulator's controls to match these.
-
-The inputs are mapped as:
-
-up    -> Numpad 8
-
-down  -> Numpad 2
-
-left  -> Numpad 4
-
-right -> Numpad 6
-
-
-b -> Numpad 1
-
-a -> Numpad 3
-
-y -> Number 7
-
-x -> Numpad 9
-
-l -> Slash (/)
-
-r -> Asterisk (*)
-
-
-start  -> Numpad 0
-
-select -> Period (.)
-
+You can map words to keys.
+Prefixing 'hold ' to a word will hold that key until the next command is recieved.
+Prefixing 'repeat ' will continuously press that key until the next command.
 
 ##TODO
 There's a lot to do. This is all currently at its first stages.
 
 * Only trigger inputs when specified window is in focus
-* Allow customised inputs
-* Fancy output
+* Customisable window ready for easy live-streaming
 
 ##LICENSE
 
