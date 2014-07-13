@@ -1,6 +1,6 @@
-package io.jahed.twitchrobot;
+package io.jahed.chatio;
 
-public class TwitchConfig {
+public class ChatConfig {
 	public String server;
 	public Integer port;
 	public String channel;

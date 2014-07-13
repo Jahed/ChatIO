@@ -1,4 +1,4 @@
-package io.jahed.twitchrobot;
+package io.jahed.chatio;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,14 +8,14 @@ import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 
-public class TwitchListener extends ListenerAdapter<PircBotX> {
+public class ChatListener extends ListenerAdapter<PircBotX> {
 	
-	private TwitchRobot robot;
+	private ChatRobot robot;
 	
 	private int availableNickSpace;;
 	private int availableKeySpace;
 	
-	public TwitchListener(TwitchRobot robot) {
+	public ChatListener(ChatRobot robot) {
 		this.robot = robot;
 		
 		this.availableNickSpace = 15;
@@ -24,7 +24,7 @@ public class TwitchListener extends ListenerAdapter<PircBotX> {
 			public int compare(String s1, String s2) {
 				return s1.length() - s2.length();
 			}
-		}).length() + TwitchRobot.REPEAT_TOKEN_LENGTH;
+		}).length() + ChatRobot.REPEAT_TOKEN_LENGTH;
 	}
 	
 	@Override

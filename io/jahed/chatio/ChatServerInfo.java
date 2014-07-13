@@ -1,13 +1,13 @@
-package io.jahed.twitchrobot;
+package io.jahed.chatio;
 
 import java.util.List;
 
 import org.pircbotx.PircBotX;
 import org.pircbotx.ServerInfo;
 
-public class TwitchServerInfo extends ServerInfo {
+public class ChatServerInfo extends ServerInfo {
 
-	public TwitchServerInfo(PircBotX bot) {
+	public ChatServerInfo(PircBotX bot) {
 		super(bot);
 	}
 	

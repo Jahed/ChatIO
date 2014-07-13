@@ -19,7 +19,7 @@
  *  OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package io.jahed.twitchrobot;
+package io.jahed.chatio;
 
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
@@ -39,7 +39,7 @@ import org.pircbotx.exception.IrcException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class TwitchRobot implements ActionListener {
+public class ChatRobot implements ActionListener {
 	
 	public static final String IRC_NAME = "TwitchRobot";
 	
@@ -56,12 +56,12 @@ public class TwitchRobot implements ActionListener {
 
 		ObjectMapper mapper = new ObjectMapper();
 		
-		TwitchConfig config = mapper.readValue(new File(args[0]), TwitchConfig.class);
+		ChatConfig config = mapper.readValue(new File(args[0]), ChatConfig.class);
 		
 	    TypeReference<HashMap<String,String>> hashMapTypeRef = new TypeReference<HashMap<String,String> >() {}; 
 	    Map<String,String> keyMap = mapper.readValue(new File(args[1]), hashMapTypeRef); 
 	    
-		TwitchRobot twitchRobot = new TwitchRobot(config, keyMap);
+		ChatRobot twitchRobot = new ChatRobot(config, keyMap);
 		
 		System.out.println("\nStarting robot in 5 seconds, focus your window...");
 		Thread.sleep(5000);
@@ -76,13 +76,13 @@ public class TwitchRobot implements ActionListener {
 	private Integer repeatKey;
 	private Integer holdKey;
 
-	public TwitchRobot(TwitchConfig config, Map<String, String> stringKeyMap) throws Exception {
+	public ChatRobot(ChatConfig config, Map<String, String> stringKeyMap) throws Exception {
 		
 		System.out.println("Parsing Keys");
 		this.setKeyMap(stringKeyMap);
 		
 		System.out.println("Setting up IRC Configuration");
-		Configuration<PircBotX> configuration = new TwitchBuilder()
+		Configuration<PircBotX> configuration = new ChatBuilder()
 	        .setLogin(IRC_NAME)
 	        .setRealName(IRC_NAME)
 	        .setAutoNickChange(true)
@@ -93,7 +93,7 @@ public class TwitchRobot implements ActionListener {
 	        .setServerPassword(config.password)
 	        .addAutoJoinChannel(config.channel)
 	        
-	        .addListener(new TwitchListener(this))
+	        .addListener(new ChatListener(this))
 		.buildConfiguration();
 		
 		ircBot = new PircBotX(configuration);
