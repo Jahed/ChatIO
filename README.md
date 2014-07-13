@@ -4,9 +4,12 @@ A simple cross-platform tool for triggering key presses through IRC channels.
 
 Inspired by [TwitchPlaysPokemon](http://www.twitch.tv/twitchplayspokemon).
 
-## Getting Started
+## Dependencies
+* [JDK 7 or later](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Gradle](http://www.gradle.org/)
 
-1. Build the app yourself (see [Building](#building) or grab it [from here (not always up-to-date)](https://www.dropbox.com/sh/m4ggpmfokvkdkkt/yAQN1-L-eC/Twitch%20Robot).
+## Getting Started
+1. [Build](#building) the app.
 
 2. Create a [config.json](config.json.template) to connect to the IRC channel you want to listen to.
 
@@ -21,8 +24,8 @@ java -jar twitch-robot.jar <path_to_config_json> <path_to_keys_json>
 # Then move focus to the window you want to control (e.g. an emulator).
 ```
 
-> If you're using your personal computer, I suggest running it within a virtual machine using VirtualBox so that
-inputs aren't triggered directly on your machine.
+> If you're using your personal computer, I suggest running it within a virtual machine using a VM
+  (like [VirtualBox](https://www.virtualbox.org/) so that inputs aren't triggered directly on your machine.
 
 ## Building
 
@@ -34,7 +37,7 @@ gradle build
 ```
 
 ## Mappings
-You can map words to keyboard keys.
+You can map words to keyboard keys by defining a key configuration.
 
 Keys should map to [KeyEvent](http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html) fields (anything prefixed with 'VK_').
 Example key configurations can be found [here](keys)
