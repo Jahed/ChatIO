@@ -8,12 +8,12 @@ Inspired by [TwitchPlaysPokemon](http://www.twitch.tv/twitchplayspokemon).
 
 1. Build the app yourself (see [Building](#building) or grab it [from here (not always up-to-date)](https://www.dropbox.com/sh/m4ggpmfokvkdkkt/yAQN1-L-eC/Twitch%20Robot).
 
-2. Create a [**Config JSON**](config.json.template) to connect to the IRC channel you want to listen to.
+2. Create a [config.json](config.json.template) to connect to the IRC channel you want to listen to.
 
  > To hook up to a Twitch channel's chat see [Twitch's IRC help page](http://help.twitch.tv/customer/portal/articles/1302780-twitch-irc).
    Channel names should be lowercase otherwise you won't join the same IRC channel as the one on your live channel page.
 
-3. Create a **Keys JSON** (see keys folder) to map words to specific keys. See [Mappings](#mappings).
+3. Create a [keys.json](keys) to map words to specific keys. See [Mappings](#mappings).
 
 ## Usage
 ```sh
@@ -37,11 +37,11 @@ gradle build
 You can map words to keyboard keys.
 
 Keys should map to [KeyEvent](http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html) fields (anything prefixed with 'VK_').
-Examples can be found [here](keys)
+Example key configurations can be found [here](keys)
 
 ### Prefixes
-You can use prefixes to perform different tasks other than single presses.
-For example `hold a` can hold the `a` button indefinitely.
+You can use prefixes to perform different tasks other than single key presses.
+For example `hold a` can hold the `a` key indefinitely.
 
 | Prefix | Description |
 |:-------|:------------|
