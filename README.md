@@ -11,7 +11,7 @@ Inspired by [TwitchPlaysPokemon](http://www.twitch.tv/twitchplayspokemon).
 ## Getting Started
 1. [Build](#building) the app.
 
-2. Create a [config.json](config.json.template) to connect to the IRC channel you want to listen to.
+2. Create a [config.json](twitch-config.template.json) to connect to the IRC channel you want to listen to.
 
  > To hook up to a Twitch channel's chat see [Twitch's IRC help page](http://help.twitch.tv/customer/portal/articles/1302780-twitch-irc).
    Channel names should be lowercase otherwise you won't join the same IRC channel as the one on your live channel page.
@@ -20,7 +20,7 @@ Inspired by [TwitchPlaysPokemon](http://www.twitch.tv/twitchplayspokemon).
 
 ## Usage
 ```sh
-java -jar twitch-robot.jar <path_to_config_json> <path_to_keys_json>
+java -jar <path_to_chat-io_jar> <path_to_config_json> <path_to_keys_json>
 # Then move focus to the window you want to control (e.g. an emulator).
 ```
 

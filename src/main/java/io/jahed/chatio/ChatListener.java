@@ -17,7 +17,7 @@ public class ChatListener extends ListenerAdapter<PircBotX> {
 
 	public ChatListener(ChatRobot robot) {
 		this.robot = robot;
-
+		
 		this.availableNickSpace = 15;
 		this.availableKeySpace = Collections.max(robot.getKeyMap().keySet(), new Comparator<String>() {
 			@Override
