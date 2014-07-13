@@ -11,12 +11,12 @@ Inspired by [TwitchPlaysPokemon](http://www.twitch.tv/twitchplayspokemon).
 ## Getting Started
 1. [Build](#building) the app.
 
-2. Create a [config.json](twitch-config.template.json) to connect to the IRC channel you want to listen to.
+2. Create a [config.json](config/twitch-config.template.json) to connect to the IRC channel you want to listen to.
 
  > To hook up to a Twitch channel's chat see [Twitch's IRC help page](http://help.twitch.tv/customer/portal/articles/1302780-twitch-irc).
    Channel names should be lowercase otherwise you won't join the same IRC channel as the one on your live channel page.
 
-3. Create a [keys.json](keys) to map words to specific keys. See [Mappings](#mappings).
+3. Create a [keys.json](config/keys) to map words to specific keys. See [Mappings](#mappings).
 
 ## Usage
 ```sh
@@ -40,7 +40,7 @@ gradle build
 You can map words to keyboard keys by defining a key configuration.
 
 Keys should map to [KeyEvent](http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html) fields (anything prefixed with 'VK_').
-Example key configurations can be found [here](keys)
+Example key configurations can be found [here](config/keys)
 
 ### Prefixes
 You can use prefixes to perform different tasks other than single key presses.
