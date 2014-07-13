@@ -1,4 +1,4 @@
-# ChatIO
+# Chat IO
 
 A simple cross-platform tool for triggering key presses through IRC channels.
 
@@ -6,14 +6,14 @@ Inspired by [TwitchPlaysPokemon](http://www.twitch.tv/twitchplayspokemon).
 
 ## Getting Started
 
-1. Build the app yourself (see [Building](#Building) or grab it [from here (not always up-to-date)](https://www.dropbox.com/sh/m4ggpmfokvkdkkt/yAQN1-L-eC/Twitch%20Robot).
+1. Build the app yourself (see [Building](#building) or grab it [from here (not always up-to-date)](https://www.dropbox.com/sh/m4ggpmfokvkdkkt/yAQN1-L-eC/Twitch%20Robot).
 
-2. Create a **Config JSON** (see config.json.template) to connect to the IRC channel you want to listen to.
+2. Create a [**Config JSON**](config.json.template) to connect to the IRC channel you want to listen to.
 
- > To hook up to a Twitch channel's chat see [Twitch.tv's IRC help page](http://help.twitch.tv/customer/portal/articles/1302780-twitch-irc).
- Channel names should be lowercase otherwise you won't join the same IRC channel as the one on your live channel page.
+ > To hook up to a Twitch channel's chat see [Twitch's IRC help page](http://help.twitch.tv/customer/portal/articles/1302780-twitch-irc).
+   Channel names should be lowercase otherwise you won't join the same IRC channel as the one on your live channel page.
 
-3. Create a **Keys JSON** (see keys folder) to map words to specific keys. See [Mappings](#Mappings).
+3. Create a **Keys JSON** (see keys folder) to map words to specific keys. See [Mappings](#mappings).
 
 ## Usage
 ```sh
@@ -26,7 +26,7 @@ inputs aren't triggered directly on your machine.
 
 ## Building
 
-To automate builds, the project uses Gradle.
+To automate builds, the project uses [Gradle](http://www.gradle.org/).
 
 ```sh
 gradle build
@@ -37,7 +37,7 @@ gradle build
 You can map words to keyboard keys.
 
 Keys should map to [KeyEvent](http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html) fields (anything prefixed with 'VK_').
-Examples can be found (here)[keys]
+Examples can be found [here](keys)
 
 ### Prefixes
 You can use prefixes to perform different tasks other than single presses.
