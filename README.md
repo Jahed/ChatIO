@@ -25,7 +25,7 @@ java -jar twitch-robot.jar <path_to_config_json> <path_to_keys_json>
 ```
 
 > If you're using your personal computer, I suggest running it within a virtual machine using a VM
-  (like [VirtualBox](https://www.virtualbox.org/) so that inputs aren't triggered directly on your machine.
+  (such as [VirtualBox](https://www.virtualbox.org/)) so that inputs aren't triggered directly on your machine.
 
 ## Building
 
