@@ -1,34 +1,61 @@
-#ChatIO
+# ChatIO
 
-A simple cross-platform tool for triggering key presses through IRC channels (such as Twitch.tv chat). Currently only triggers key presses.
+A simple cross-platform tool for triggering key presses through IRC channels.
 
 Inspired by [TwitchPlaysPokemon](http://www.twitch.tv/twitchplayspokemon).
 
-##Usage
-Build the JAR or grab it [from here (not always up-to-date)](https://www.dropbox.com/sh/m4ggpmfokvkdkkt/yAQN1-L-eC/Twitch%20Robot).
+## Getting Started
 
-Create a config.json (see config.json.template) to connect to the IRC channel you want to listen to. (See [Twitch.tv's IRC help page](http://help.twitch.tv/customer/portal/articles/1302780-twitch-irc). Channel names should be lowercase otherwise you won't join the same IRC channel as the one on your live channel page.)
+1. Build the app yourself (see [Building](#Building) or grab it [from here (not always up-to-date)](https://www.dropbox.com/sh/m4ggpmfokvkdkkt/yAQN1-L-eC/Twitch%20Robot).
 
-Create a keys.json (see keys folder) to map words to specific keys. Keys should map to [KeyEvent](http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html) fields (anything prefixed with 'VK_').
+2. Create a **Config JSON** (see config.json.template) to connect to the IRC channel you want to listen to.
 
-Run "java -jar twitch-robot.jar {config.json} {keys.json}" on the same machine.
+ > To hook up to a Twitch channel's chat see [Twitch.tv's IRC help page](http://help.twitch.tv/customer/portal/articles/1302780-twitch-irc).
+ Channel names should be lowercase otherwise you won't join the same IRC channel as the one on your live channel page.
 
-Move focus to the window you want to control (e.g. the emulator).
+3. Create a **Keys JSON** (see keys folder) to map words to specific keys. See [Mappings](#Mappings).
 
-If you're using your personal computer, I suggest running it within a virtual machine using VirtualBox.
+## Usage
+```sh
+java -jar twitch-robot.jar <path_to_config_json> <path_to_keys_json>
+# Then move focus to the window you want to control (e.g. an emulator).
+```
 
-##Mappings
-You can map words to keys.
-Prefixing 'hold ' to a word will hold that key until the next command is recieved.
-Prefixing 'repeat ' will continuously press that key until the next command.
+> If you're using your personal computer, I suggest running it within a virtual machine using VirtualBox so that
+inputs aren't triggered directly on your machine.
 
-##TODO
+## Building
+
+To automate builds, the project uses Gradle.
+
+```sh
+gradle build
+# Creates a JAR with dependencies ready to run under ./build/libs/
+```
+
+## Mappings
+You can map words to keyboard keys.
+
+Keys should map to [KeyEvent](http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html) fields (anything prefixed with 'VK_').
+Examples can be found (here)[keys]
+
+### Prefixes
+You can use prefixes to perform different tasks other than single presses.
+For example `hold a` can hold the `a` button indefinitely.
+
+| Prefix | Description |
+|:-------|:------------|
+| `hold ` | Hold a key until the next command is received | 
+| `repeat ` | Continuously press a key until the next command is received | 
+
+## To Do
 There's a lot to do. This is all currently at its first stages.
 
-* Only trigger inputs when specified window is in focus
-* Customisable window ready for easy live-streaming
+* Only trigger inputs when a specified window is in focus
+* Customisable window ready for easy live-streaming (stop using stdin)
+* Mouse movement?
 
-##LICENSE
+## License
 
 Copyright (C) 2014 Jahed Ahmed
 
