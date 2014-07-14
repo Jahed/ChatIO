@@ -24,8 +24,8 @@ java -jar <path_to_chat-io_jar> <path_to_config_json> <path_to_keys_json>
 # Then move focus to the window you want to control (e.g. an emulator).
 ```
 
-> If you're using your personal computer, I suggest running it within a virtual machine using a VM
-  (such as [VirtualBox](https://www.virtualbox.org/)) so that inputs aren't triggered directly on your machine.
+> If you're using your personal computer, I suggest running it within a virtual machine such as
+  [VirtualBox](https://www.virtualbox.org/)) so that inputs aren't triggered directly on your machine.
 
 ## Building
 
@@ -39,7 +39,7 @@ gradle build
 ## Mappings
 You can map words to keyboard keys by defining a key configuration.
 
-Keys should map to [KeyEvent](http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html) fields (anything prefixed with 'VK_').
+Keys should map to [static KeyEvent fields](http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html), that is anything prefixed with `VK_`.
 Example key configurations can be found [here](config/keys)
 
 ### Prefixes
