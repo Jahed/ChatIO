@@ -6,8 +6,9 @@ import org.pircbotx.ServerInfo;
 
 public class ChatBotFactory extends BotFactory {
 	
-	@Override
-	public ServerInfo createServerInfo(PircBotX bot) {
-		return new ChatServerInfo(bot);
-	}
+    @Override
+    public ServerInfo createServerInfo(PircBotX bot) {
+        return new ChatServerInfo(bot);
+    }
+    
 }
