@@ -20,7 +20,7 @@ Inspired by [TwitchPlaysPokemon](http://www.twitch.tv/twitchplayspokemon).
      Channel names should be lowercase otherwise you won't join the same IRC
      channel as the one on your live channel page.
 
-3. Create a `[keys.json](config/keys)` to map words to specific keys.
+3. Create a [`keys.json`](./config/keys) to map words to specific keys.
    See [Mappings](#mappings).
 
 ### Building
@@ -64,7 +64,7 @@ planned features. You can even vote for what you want!
 
 ## Development
 
-Everything is setup in [`./build.gradle`](./build.gradle)` ready to be imported into
+Everything is setup in [`./build.gradle`](./build.gradle) ready to be imported into
 your favourite IDE. There shouldn't be any IDE-specific files added to the repo.
 
 I'm open to pull requests, issues and any other form of contribution.
