@@ -9,4 +9,5 @@ public class ChatBuilder extends Builder<PircBotX> {
         super();
         this.botFactory = new ChatBotFactory();
     }
+
 }

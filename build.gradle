@@ -4,8 +4,8 @@ apply plugin: 'application'
 version = '1.0'
 mainClassName = 'io.jahed.chatio.ChatIO'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -24,6 +24,7 @@ dependencies {
 
 jar {
     from {
+        // Include External Libraries
         configurations.compile.collect {
             it.isDirectory() ? it : zipTree(it)
         }
