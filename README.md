@@ -12,7 +12,7 @@ Inspired by [TwitchPlaysPokemon](http://www.twitch.tv/twitchplayspokemon).
 ## Getting Started
 1. [Build](#building) the app.
 
-2. Create a `[config.json](config/twitch-config.template.json)` to connect to
+2. Create a [`config.json`](./config/twitch-config.template.json) to connect to
    the IRC channel you want to listen to.
 
    > To hook up to a Twitch channel's chat see [Twitch's IRC help page]
@@ -47,7 +47,7 @@ You can map words to keyboard keys by defining a key configuration.
 Keys should map to [static KeyEvent fields]
 (http://docs.oracle.com/javase/7/docs/api/java/awt/event/KeyEvent.html), that is
 anything prefixed with `VK_`. Example key configurations can be found under
-`[./config/keys](config/keys)`.
+[`./config/keys`](./config/keys).
 
 ### Prefixes
 You can use prefixes to perform different tasks other than single key presses.
@@ -64,12 +64,12 @@ planned features. You can even vote for what you want!
 
 ## Development
 
-Everything is setup in `[build.gradle](build.gradle)` ready to be imported into
+Everything is setup in [`./build.gradle`](./build.gradle)` ready to be imported into
 your favourite IDE. There shouldn't be any IDE-specific files added to the repo.
 
 I'm open to pull requests, issues and any other form of contribution.
 
-## Links
+## Useful Links
 
 * [Homepage](http://blog.jahed.io/tagged/chat-io)
 * [Repository](http://github.com/Jahed/chat-io)
