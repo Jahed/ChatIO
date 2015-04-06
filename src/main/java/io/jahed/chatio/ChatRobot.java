@@ -60,7 +60,7 @@ public class ChatRobot implements ActionListener {
     }
     
     private void setKeyMap(Map<String, String> stringKeyMap) throws Exception {
-        this.keyMap = new HashMap<String, Integer>();
+        this.keyMap = new HashMap<>();
         
         for(String word : stringKeyMap.keySet()) {
             Integer keyCode = (Integer)KeyEvent.class.getField(stringKeyMap.get(word)).get(null);
@@ -96,7 +96,7 @@ public class ChatRobot implements ActionListener {
         if(repeatKey != null) {
             repeatTimer.stop();
             repeatKey = null;
-        } else if(holdKey != null && (!hold || holdKey != keyCode)) {
+        } else if(holdKey != null && (!hold || !keyCode.equals(holdKey))) {
             inputBot.keyRelease(holdKey);
             holdKey = null;
         }
@@ -104,7 +104,7 @@ public class ChatRobot implements ActionListener {
         if(repeat) {
             repeatKey = keyCode;
             repeatTimer.start();
-        } else if(hold && holdKey != keyCode) {
+        } else if(hold && !keyCode.equals(holdKey)) {
             holdKey = keyCode;
             inputBot.keyPress(keyCode);
         } else {
