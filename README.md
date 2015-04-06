@@ -25,7 +25,7 @@ $ ./gradlew build
 ./build/libs/crowd-play-<version>.jar
 ```
 
-### Usage
+## Usage
 ```sh
 $ java -jar crowd-play.jar --help
 
