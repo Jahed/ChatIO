@@ -33,15 +33,22 @@ gradle build
 
 ### Usage
 ```sh
-java -jar <path_to_crowd-play_jar> <path_to_config_json> <path_to_keys_json>
-# Then move focus to the window you want to control (e.g. an emulator).
+$ java -jar crowd-play.jar --help
+usage: java -jar crowd-play.jar --config <config json> --keys <keys json>
+ -b,--blank          hide setup logging when ready
+ -c,--config <arg>   configuration json
+ -h,--help           this help
+ -k,--keys <arg>     key mapping json
+ -v,--version        version number
 ```
 
-> If you're using your personal computer, I suggest running it within a virtual
-  machine such as [VirtualBox](https://www.virtualbox.org/)) so that inputs
-  aren't triggered directly on your machine.
+See `./config` for example JSON files.
 
-### Mappings
+If you're using your personal computer, I suggest running it within a virtual
+machine such as [VirtualBox](https://www.virtualbox.org/)) so that inputs aren't
+triggered directly on your machine.
+
+### Key Mappings
 You can map words to keyboard keys by defining a key configuration.
 
 Keys should map to [static KeyEvent fields]
@@ -50,8 +57,8 @@ anything prefixed with `VK_`. Example key configurations can be found under
 [`./config/keys`](./config/keys).
 
 ### Prefixes
-You can use prefixes to perform different tasks other than single key presses.
-For example `hold a` can hold the `a` key indefinitely.
+In chat, you can use prefixes to perform different tasks other than single key
+presses. For example `hold a` will hold the `a` key.
 
 | Prefix    | Description                                                 |
 |:----------|:------------------------------------------------------------|
@@ -59,14 +66,5 @@ For example `hold a` can hold the `a` key indefinitely.
 | `repeat ` | Continuously press a key until the next command is received | 
 
 
-## Development
-
-Everything is setup in [`./build.gradle`](./build.gradle) ready to be imported into
-your favourite IDE. There shouldn't be any IDE-specific files added to the repo.
-
+## Contributing
 I'm open to pull requests, issues and any other form of contribution.
-
-## Useful Links
-
-* [Homepage](http://blog.jahed.io/tagged/crowd-play)
-* [Repository](http://github.com/Jahed/crowd-play)

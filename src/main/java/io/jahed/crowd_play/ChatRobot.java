@@ -32,7 +32,7 @@ public class ChatRobot implements ActionListener {
     private Integer holdKey;
 
     public ChatRobot(ChatConfig config, Map<String, String> stringKeyMap) throws Exception {
-        System.out.println("Parsing Keys...");
+        System.out.print("Parsing Keys...");
         this.setKeyMap(stringKeyMap);
         System.out.println(" OK");
 
@@ -54,7 +54,7 @@ public class ChatRobot implements ActionListener {
         System.out.print("Creating Robot...");
         inputBot = new Robot();
         inputBot.setAutoDelay(100); // required to register key presses on some emulators
-        System.out.print(" OK");
+        System.out.println(" OK");
 
         repeatTimer = new Timer(100, this);
     }
