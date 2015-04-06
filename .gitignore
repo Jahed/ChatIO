@@ -1,26 +1,4 @@
-# Sensitive Details
-config/config.json
-
-# Build
-build
-dist
-*.jar
-*.class
-*.zip
-MANIFEST.MF
-
-# Markdown Previews
-*.html
-
-# Gradle
 .gradle
+build
 
-# IntelliJ IDEA
-.idea/
-*.iml
-
-# Eclipse
-.classpath
-.project
-.metadata
-.settings
+config/config.json
