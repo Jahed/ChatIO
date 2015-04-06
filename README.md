@@ -1,39 +1,34 @@
 # Crowd Play
-
-A simple cross-platform tool for triggering key presses using messages via
-IRC.
-
-Inspired by [TwitchPlaysPokemon](http://www.twitch.tv/twitchplayspokemon).
+Trigger input commands using messages from multiple users via IRC.
 
 ## Dependencies
 * [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-* [Gradle](http://www.gradle.org/)
 
-## Getting Started
-1. [Build](#building) the app.
+## Quick Start
+1. Build the app.
 
-2. Create a [`config.json`](./config/twitch-config.template.json) to connect to
-   the IRC channel you want to listen to.
+2. Create a Config JSON to connect to the IRC channel you want to hook up to.
 
-   > To hook up to a Twitch channel's chat see [Twitch's IRC help page]
-     (http://help.twitch.tv/customer/portal/articles/1302780-twitch-irc).
-     Channel names should be lowercase otherwise you won't join the same IRC
-     channel as the one on your live channel page.
+   To hook up to a Twitch channel's chat see [Twitch's IRC help page]
+   (http://help.twitch.tv/customer/portal/articles/1302780-twitch-irc).
+   Channel names should be lowercase otherwise you won't join the same IRC
+   channel as the one on your live channel page.
 
-3. Create a [`keys.json`](./config/keys) to map words to specific keys.
-   See [Mappings](#mappings).
+3. Create a Key Mapping JSON to map words to specific keys.
 
-### Building
-To automate builds, the project uses [Gradle](http://www.gradle.org/).
+4. Run the app.
 
+## Building
 ```sh
-gradle build
-# Creates a JAR with dependencies ready to run under `./build/libs/`
+$ ./gradlew build
+
+./build/libs/crowd-play-<version>.jar
 ```
 
 ### Usage
 ```sh
 $ java -jar crowd-play.jar --help
+
 usage: java -jar crowd-play.jar --config <config json> --keys <keys json>
  -b,--blank          hide setup logging when ready
  -c,--config <arg>   configuration json
@@ -65,6 +60,9 @@ presses. For example `hold a` will hold the `a` key.
 | `hold `   | Hold a key until the next command is received               |
 | `repeat ` | Continuously press a key until the next command is received | 
 
+
+## Contributors
+This project was heavily inspired by [TwitchPlaysPokemon](http://www.twitch.tv/twitchplayspokemon).
 
 ## Contributing
 I'm open to pull requests, issues and any other form of contribution.

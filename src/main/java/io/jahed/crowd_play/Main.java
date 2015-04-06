@@ -31,6 +31,7 @@ public class Main {
 
         if(!cmd.hasOption("config") || !cmd.hasOption("keys") || cmd.hasOption("help")) {
             HelpFormatter formatter = new HelpFormatter();
+            System.out.println();
             formatter.printHelp("java -jar crowd-play.jar --config <config json> --keys <keys json>", options);
 
             System.exit(cmd.hasOption("help") ? 0 : -1);
