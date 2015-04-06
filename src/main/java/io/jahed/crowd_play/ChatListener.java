@@ -1,4 +1,4 @@
-package io.jahed.chatio;
+package io.jahed.crowd_play;
 
 import java.util.Arrays;
 import java.util.Collections;

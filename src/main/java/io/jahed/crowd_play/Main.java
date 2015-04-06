@@ -1,4 +1,4 @@
-package io.jahed.chatio;
+package io.jahed.crowd_play;
 
 import java.io.File;
 import java.util.HashMap;
@@ -7,13 +7,13 @@ import java.util.Map;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ChatIO {
+public class Main {
 
     public static void main(String[] args) throws Exception {
         //Temporary while there's no error-checking
         System.out.println(
             "\nIncase something goes wrong, to run the program properly use:\n" +
-            "\tjava -jar chat-io.jar \"config_path.json\" \"keys_path.json\" \n"
+            "\tjava -jar crowd-play.jar \"config_path.json\" \"keys_path.json\" \n"
         );
 
         ObjectMapper mapper = new ObjectMapper();

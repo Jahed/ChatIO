@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 
 version = '1.0'
-mainClassName = 'io.jahed.chatio.ChatIO'
+mainClassName = 'io.jahed.crowd_play.Main'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -30,7 +30,7 @@ jar {
         }
     }
     manifest {
-        attributes 'Implementation-Title': 'ChatIO'
+        attributes 'Implementation-Title': 'io.jahed.crowd_play'
         attributes 'Implementation-Version': version
         attributes 'Main-Class': mainClassName
     }

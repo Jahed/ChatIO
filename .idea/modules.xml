@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/chat-io.iml" filepath="$PROJECT_DIR$/chat-io.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crowd-play.iml" filepath="$PROJECT_DIR$/crowd-play.iml" />
     </modules>
   </component>
 </project>

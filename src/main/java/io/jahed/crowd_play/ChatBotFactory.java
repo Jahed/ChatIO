@@ -1,4 +1,4 @@
-package io.jahed.chatio;
+package io.jahed.crowd_play;
 
 import org.pircbotx.Configuration.BotFactory;
 import org.pircbotx.PircBotX;
