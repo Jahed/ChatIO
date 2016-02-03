@@ -7,5 +7,6 @@ public class ChatConfig {
     public String channel;
     public String username;
     public String password;
+    public Boolean restricted;
     
 }

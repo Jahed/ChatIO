@@ -1,12 +1,13 @@
 package io.jahed.crowd_play;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.cli.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
 
@@ -41,10 +42,9 @@ public class Main {
         String keysPath = cmd.getOptionValue("keys");
 
         ObjectMapper mapper = new ObjectMapper();
-        ChatConfig config = mapper.readValue(new File(configPath), ChatConfig.class);
-        TypeReference<HashMap<String, String>> hashMapTypeRef = new TypeReference<HashMap<String, String>>(){};
-        Map<String,String> keyMap = mapper.readValue(new File(keysPath), hashMapTypeRef);
-        
+        ChatConfig config = getConfig(mapper, configPath);
+        Map<String,String> keyMap = getKeyMap(mapper, keysPath);
+
         ChatRobot chatRobot = new ChatRobot(config, keyMap);
 
         System.out.println("\nCrowd Play");
@@ -58,5 +58,14 @@ public class Main {
 
         chatRobot.run();
     }
-    
+
+    private static ChatConfig getConfig(ObjectMapper mapper, String path) throws IOException {
+        return mapper.readValue(new File(path), ChatConfig.class);
+    }
+
+    private static Map<String,String> getKeyMap(ObjectMapper mapper, String path) throws IOException {
+        TypeReference<HashMap<String, String>> hashMapTypeRef = new TypeReference<HashMap<String, String>>(){};
+        return mapper.readValue(new File(path), hashMapTypeRef);
+    }
+
 }

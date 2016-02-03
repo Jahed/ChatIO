@@ -3,5 +3,6 @@
     "port" : 6667,
     "channel" : "#channel_name_to_get_chat_lines_from",
     "username" : "account_username",
-    "password" : "oauth:get_it_from_http://twitchapps.com/tmi/"
+    "password" : "oauth:get_it_from_http://twitchapps.com/tmi/",
+    "restricted" : false
 }

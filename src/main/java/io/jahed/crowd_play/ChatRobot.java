@@ -1,18 +1,17 @@
 package io.jahed.crowd_play;
 
-import java.awt.Robot;
+import org.pircbotx.Configuration;
+import org.pircbotx.PircBotX;
+import org.pircbotx.exception.IrcException;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.swing.Timer;
-
-import org.pircbotx.Configuration;
-import org.pircbotx.PircBotX;
-import org.pircbotx.exception.IrcException;
 
 public class ChatRobot implements ActionListener {
     
@@ -26,14 +25,17 @@ public class ChatRobot implements ActionListener {
 
     private Robot inputBot;
     private PircBotX ircBot;
+    private final ChatConfig config;
     private Map<String, Integer> keyMap;
     private Timer repeatTimer;
     private Integer repeatKey;
     private Integer holdKey;
 
-    public ChatRobot(ChatConfig config, Map<String, String> stringKeyMap) throws Exception {
+    public ChatRobot(ChatConfig config, Map<String, String> keyMapConfig) throws Exception {
+        this.config = config;
+
         System.out.print("Parsing Keys...");
-        this.setKeyMap(stringKeyMap);
+        this.setKeyMap(keyMapConfig);
         System.out.println(" OK");
 
         System.out.print("Setting up IRC Configuration...");
@@ -58,12 +60,16 @@ public class ChatRobot implements ActionListener {
 
         repeatTimer = new Timer(100, this);
     }
-    
-    private void setKeyMap(Map<String, String> stringKeyMap) throws Exception {
+
+    public ChatConfig getConfig() {
+        return config;
+    }
+
+    private void setKeyMap(Map<String, String> keyMapConfig) throws Exception {
         this.keyMap = new HashMap<>();
         
-        for(String word : stringKeyMap.keySet()) {
-            Integer keyCode = (Integer)KeyEvent.class.getField(stringKeyMap.get(word)).get(null);
+        for(String word : keyMapConfig.keySet()) {
+            Integer keyCode = (Integer)KeyEvent.class.getField(keyMapConfig.get(word)).get(null);
             this.keyMap.put(word, keyCode);
         }
     }
@@ -76,17 +82,17 @@ public class ChatRobot implements ActionListener {
         ircBot.startBot();        
     }
 
-    public boolean perform(String choice) {
-        boolean repeat = choice.startsWith(REPEAT_TOKEN);
-        boolean hold = choice.startsWith(HOLD_TOKEN);
+    public boolean perform(String input) {
+        boolean repeat = input.startsWith(REPEAT_TOKEN);
+        boolean hold = input.startsWith(HOLD_TOKEN);
         Integer keyCode;
         
         if(repeat) {
-            keyCode = keyMap.get(choice.substring(REPEAT_TOKEN_LENGTH));
+            keyCode = keyMap.get(input.substring(REPEAT_TOKEN_LENGTH));
         } else if(hold) {
-            keyCode = keyMap.get(choice.substring(HOLD_TOKEN_LENGTH));
+            keyCode = keyMap.get(input.substring(HOLD_TOKEN_LENGTH));
         } else {
-            keyCode = keyMap.get(choice);
+            keyCode = keyMap.get(input);
         }
         
         if(keyCode == null) {
