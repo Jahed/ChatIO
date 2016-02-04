@@ -34,7 +34,7 @@ public class ChatBotIRCListener extends ListenerAdapter<PircBotX> {
     }
 
     @Override
-    public void onMessage(MessageEvent<PircBotX> event) throws Exception {
+    public void onMessage(MessageEvent<PircBotX> event) {
         User user = event.getUser();
         String message = event.getMessage();
 

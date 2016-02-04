@@ -59,7 +59,7 @@ public class ChatBot {
         ircBot.startBot();
     }
 
-    public void perform(String input) {
+    public void perform(String input) throws Exception {
         ActionType actionType = ActionType.fromInput(input);
 
         Integer keyCode = keyMap.getKeyCode(actionType.getKey(input));
