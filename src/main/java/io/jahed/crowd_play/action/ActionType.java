@@ -17,8 +17,9 @@ public enum ActionType {
     }
 
     public String getKey(String input) {
-        return input.startsWith(this.name().toLowerCase() + " ")
-                ? input.substring(this.name().length() + 1)
+        String inputPrefix = getInputPrefix(this);
+        return input.startsWith(inputPrefix)
+                ? input.substring(inputPrefix.length())
                 : input;
     }
 
@@ -28,8 +29,12 @@ public enum ActionType {
 
     public static ActionType fromInput(String input) {
         return Stream.of(ActionType.values())
-                .filter(type -> input.startsWith(type + " "))
-                .findFirst()
-                .orElse(TAP);
+            .filter(type -> input.startsWith(getInputPrefix(type)))
+            .findFirst()
+            .orElse(TAP);
+    }
+
+    private static String getInputPrefix(ActionType actionType) {
+        return actionType.name().toLowerCase() + " ";
     }
 }
