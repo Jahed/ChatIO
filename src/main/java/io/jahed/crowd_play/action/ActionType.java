@@ -19,8 +19,8 @@ public enum ActionType {
     public String getKey(String input) {
         String inputPrefix = getInputPrefix(this);
         return input.startsWith(inputPrefix)
-                ? input.substring(inputPrefix.length())
-                : input;
+            ? input.substring(inputPrefix.length())
+            : input;
     }
 
     public Action createAction(ChatBot chatBot, Integer keyCode) {
