@@ -1,4 +1,7 @@
 # Crowd Play
+
+[![Patreon](https://img.shields.io/badge/patreon-donate-f96854.svg)](https://www.patreon.com/jahed)
+
 Trigger input commands using messages from multiple users via IRC.
 
 ## Dependencies
